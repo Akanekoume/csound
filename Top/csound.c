@@ -103,6 +103,8 @@ extern int fterror(const FGDATA *ff, const char *s, ...);
 PUBLIC int csoundErrCnt(CSOUND *);
 void (*msgcallback_)(CSOUND *, int, const char *, va_list) = NULL;
 INSTRTXT *csoundGetInstrument(CSOUND *csound, int insno, const char *name);
+ORCTOKEN *add_token(CSOUND *csound, char *s, int type);
+MYFLT csoundEvalCode(CSOUND *csound, const char *str);
 
 void csoundDebuggerBreakpointReached(CSOUND *csound);
 void message_dequeue(CSOUND *csound);
@@ -534,10 +536,11 @@ static const CSOUND cenviron_ = {
     csoundCepsLP,
     csoundLPrms,
     csoundCreateThread2,
+    add_token,
+    csoundEvalCode,
     {
       NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-      NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-      NULL, NULL
+      NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL
     },
     /* ------- private data (not to be used by hosts or externals) ------- */
     /* callback function pointers */

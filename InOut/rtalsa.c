@@ -1900,6 +1900,9 @@ PUBLIC int csoundModuleInit(CSOUND *csound)
     int     i;
     char    buf[9];
     OPARMS oparms;
+    
+    /* Stop valgrind from complaining. */
+    memset(buf, '\0', sizeof(char) * 9);
     csound->GetOParms(csound, &oparms);
 
     csound->module_list_add(csound, "alsa", "audio");

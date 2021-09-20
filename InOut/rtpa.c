@@ -876,6 +876,8 @@ PUBLIC int csoundModuleInit(CSOUND *csound)
 {
   char    *s, drv[12];
   int     i;
+  /* Stop valgrind from complaining. */
+  memset(drv, '\0', sizeof(char) * 12);
   csound->module_list_add(csound, "pa_bl", "audio");
   csound->module_list_add(csound, "pa_cb", "audio");
   if ((s = (char*) csound->QueryGlobalVariable(csound, "_RTAUDIO")) == NULL)
@@ -885,8 +887,10 @@ PUBLIC int csoundModuleInit(CSOUND *csound)
   drv[i] = '\0';
   if (!(strcmp(drv, "PORTAUDIO") == 0 || strcmp(drv, "PA") == 0 ||
         strcmp(drv, "PA_BL") == 0 || strcmp(drv, "PA_CB") == 0))
-    return 0;
-    csound->ErrorMsg(csound, "%s", Str("rtaudio: PortAudio module enabled ...\n"));
+    {
+      return 0;
+    }
+  csound->ErrorMsg(csound, "%s", Str("rtaudio: PortAudio module enabled ...\n"));
   /* set function pointers */
 #ifdef LINUX
   if (strcmp(drv, "PA_CB") != 0)

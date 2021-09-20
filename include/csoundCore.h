@@ -1405,11 +1405,13 @@ typedef struct _message_queue_t_ {
     MYFLT* (*CepsLP)(CSOUND *, MYFLT *, MYFLT *, int, int);
     MYFLT (*LPrms)(CSOUND *, void *);
     void *(*CreateThread2)(uintptr_t (*threadRoutine)(void *), unsigned int, void *userdata);
+    ORCTOKEN *(*add_token)(CSOUND *csound, char *s, int type);
+    MYFLT (*EvalCode)(CSOUND *csound, const char *orchestra_code);
     /**@}*/
     /** @name Placeholders
         To allow the API to grow while maintining backward binary compatibility. */
     /**@{ */
-    SUBR dummyfn_2[22];
+    SUBR dummyfn_2[20];
     /**@}*/
 #ifdef __BUILDING_LIBCSOUND
     /* ------- private data (not to be used by hosts or externals) ------- */
